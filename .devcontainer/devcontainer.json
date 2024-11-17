@@ -1,0 +1,21 @@
+{
+  "name": "GOTH Workshop",
+  "context": "../code",
+  "dockerFile": "./Dockerfile",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "go.useLanguageServer": true,
+        "go.gopath": "/go",
+        "go.toolsGopath": "/go"
+      }
+    },
+    "extensions": [
+      "golang.go",
+      "a-h.templ"
+    ]
+  },
+  "workspaceFolder": "/workspace",
+  "remoteUser": "root"
+}
