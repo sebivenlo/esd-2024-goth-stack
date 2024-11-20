@@ -13,7 +13,8 @@
     },
     "extensions": [
       "golang.go",
-      "a-h.templ"
+      "a-h.templ",
+      "otovo-oss.htmx-tags"
     ]
   },
   "workspaceFolder": "/workspace",
