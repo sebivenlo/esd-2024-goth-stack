@@ -14,7 +14,7 @@
     "extensions": [
       "golang.go",
       "a-h.templ",
-      "otovo-oss.htmx-tags"
+      "craigrbroughton.htmx-attributes"
     ]
   },
   "workspaceFolder": "/workspace",
