@@ -1,6 +1,6 @@
 {
   "name": "GOTH Workshop",
-  "context": "../code",
+  "context": "../Assignment",
   "dockerFile": "./Dockerfile",
   "customizations": {
     "vscode": {
