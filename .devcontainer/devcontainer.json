@@ -9,13 +9,15 @@
         "go.useLanguageServer": true,
         "go.gopath": "/go",
         "go.toolsGopath": "/go"
-      }
-    },
-    "extensions": [
-      "golang.go",
-      "a-h.templ",
-      "craigrbroughton.htmx-attributes"
-    ]
+      },
+      "extensions": [
+        "golang.go",
+        "a-h.templ",
+        "craigrbroughton.htmx-attributes",
+        "bradlc.vscode-tailwindcss",
+        "heybourn.headwind"
+      ]
+    }
   },
   "workspaceFolder": "/workspace",
   "remoteUser": "root"
