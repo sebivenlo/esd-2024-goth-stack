@@ -2,6 +2,7 @@ FROM golang:1.23
 
 RUN go install golang.org/x/tools/gopls@latest
 RUN go install github.com/a-h/templ/cmd/templ@latest
+RUN go install github.com/air-verse/air@latest
 
 ENV PATH="/go/bin:${PATH}"
 
