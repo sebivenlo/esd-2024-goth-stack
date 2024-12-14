@@ -1,0 +1,57 @@
+package views
+
+import "strconv"
+
+type Todo struct {
+	Id        int
+	Title     string
+	Completed bool
+}
+
+templ TodoList(items []Todo) {
+	<div class="flex flex-col items-center justify-center space-y-4">
+		<h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
+			Todo List
+		</h1>
+		@AddTodoForm()
+		<div id="todo-list" class="w-full max-w-3xl p-8 md:p-12 text-left space-y-4">
+			for _, item := range items {
+				@TodoItem(item)
+			}
+		</div>
+	</div>
+}
+
+templ AddTodoForm() {
+	<form hx-post="/todos" hx-swap="none" class="flex items-center space-x-4">
+		<input type="text" name="title" class="w-full px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring focus:ring-blue-500" placeholder="Add a new todo"/>
+		<button type="submit" class="px-6 py-2 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 transition-colors">
+			Add
+		</button>
+	</form>
+}
+
+templ TodoItem(todo Todo) {
+	<div class="todo-item flex items-center space-x-4 border-b border-gray-200 py-2">
+		<input
+			type="checkbox"
+			if todo.Completed {
+				checked
+			}
+		/>
+		<div class="flex items-center justify-between w-full">
+			<span class="text-lg font-medium text-gray-900">{ todo.Title }</span>
+			<button hx-delete={"/todos/" + strconv.Itoa(todo.Id)} hx-swap="outerHTML" hx-target="closest .todo-item" class="text-red-500 hover:text-red-600 transition-colors">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+}
+
+templ TodoItemOob(todo Todo, direction string) {
+	<div id="todo-list" hx-swap-oob={ direction }>
+		@TodoItem(todo)
+	</div>
+}
