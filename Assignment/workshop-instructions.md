@@ -36,3 +36,39 @@ Check if it works by adding another http route `/todo` that returns this templ c
 Let's do two more things before we really get into htmx and adding  functionality to our Todo App.  
 **First off, let's give our Todo Items structure by adding a TodoItem struct.**  
 The struct needs an `Id`, a `Title`, and a bool checking if it is `Done`.
+
+> 💡 You can create a struct in Go with `type YourStructName struct {}`. You can just put the struct definition into todo.templ.
+
+**Secondly, create another Templ component. This one will be called `TodoList` and take a TodoItem array as a parameter.**  
+It should wrap around and create one TodoItem component for each item in the TodoItem array from our parameter.
+
+> 💡 You can just write plain Go in your templ components. A for loop can look as simple as `for _, item := range items {}`
+
+### Exercise 5
+Let's add the functionality to create a Todo Item! You can use an HTML form to do so. We will keep it simple in the beginning.  
+**Add a form to your TodoList component with an input field named "title" which will send an hx-post to `/contacts` and target `#content`. You will also need to handle the related Server code.**  
+There are some problems with this though: Check the response we get under the network tab as we add more and more todo items.  
+**To fix this, create another templ component named `TodoItemOob`which simply wraps the TodoItem component in a div with the following tags: `id="todo-list" hx-swap-oob="afterbegin"`.**  
+Make sure that the div in your TodoList component that wraps the for loop has the id `todo-list`. Also make sure that your form has the attribute `hx-swap="none"` set. Why?
+
+### Exercise 6
+What's missing now is the ability to delete Todo Items now.
+You can use this svg as your delete button:
+```
+<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+</svg>
+```
+**You should know what to do by now: Create a button with an hx-delete request to the server.**  
+Use the ID of the todo item as a parameter in the request path. 
+> 💡 We are using plain `net/http` (The web server from the Go standard library), so you will have to extract the Id from the string manually in your Go code. Web frameworks like Echo handle this automatically.
+
+There are some things you need to watch out here for. One thing are the hx-target selectors: You can not only use CSS selectors, but combine them with `closest`, `next` or `previous` to select the item you want. 
+You can learn more [here](https://htmx.org/attributes/hx-target/).  
+Another thing is that http.handleFunc("/todos") does not handle `/todos/` with the extra slash at the end. You will have to create a separate endpoint for that.
+
+### Exercise 7
+If you got this far, and there is still time, here is one more exercise for you:  
+**Handle the completion of todo items.**  
+Once the user checks the checkbox, make it so that the item is sent to the bottom of the list, optionally greyed out and the text striked through.  
+There won't be any additional tips for this one. Good luck!
