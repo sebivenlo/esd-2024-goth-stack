@@ -60,7 +60,7 @@ After creating a single todo component, we now want to **display a whole list** 
 
 **1.** Start by creating a simple array of strings in your `main.go` file. These strings will hold the names of our todo items. Be creative!
 
-> 💡 You can create an array of strings in Go with `var todos = []string{"item1", "item2"}`
+> 💡 You can create an array of strings in Go with `var todos = []string{"Buy milk", "Your mom"}`
 
 **2.** Now create another Templ component `templ TodoList(todos []string)`, that takes an array of strings as parameter. You can just add it to the already existing `todo.templ` file.
 In your component, use a for-loop to create one Todo component for each item in the string array from our parameter.
@@ -84,11 +84,13 @@ The struct needs an `Id`, a `Title`, and a bool checking if it is `Done`.
 
 --------
 
-## Exercise 6
-Let's add the functionality to create a Todo Item! You can use an HTML form to do so. We will keep it simple in the beginning.  
-**1.** Add an HTML form to your TodoList component with an input field named `title`. The form should send an hx-post to `/todos` and target `#content`. You can use these attributes instead of the default `method="POST"` attribute for forms. Also, it's always a good idea to create new templ components for items like this.
+## Exercise 6 - Handling our first post request
+Let's add the functionality to **create** a Todo Item! You can use an HTML form to do so. We will keep it simple in the beginning. 
 
-> 💡 Handling this post request in your `main.go` will require you to do some things which we have not tackled yet, mainly the `http.HandleFunc` method to handle custom logic instead of simply returning a file. To make things easier, just copy and paste the following code into your `main.go`:
+**1.** Add an HTML form (Look at the second tip below if you need help with that) to your TodoList component. It should have an input field with the attribute `name="title"`.  
+The form should send an hx-post to `/todos` and target `#content`. You can use these attributes instead of the default `method="POST"` attribute for forms. Also, it's always a good idea to create new templ components for items like this.
+
+**2.** Handling this post request in your `main.go` will require you to do some things which we have not tackled yet, mainly the `http.HandleFunc` method to handle custom logic instead of simply returning a file. To make things easier, just copy and paste the following code into your `main.go`:
 ```go
 http.HandleFunc("/todos", func(w http.ResponseWriter, r *http.Request) {
     title := r.FormValue("title")
@@ -101,9 +103,15 @@ http.HandleFunc("/todos", func(w http.ResponseWriter, r *http.Request) {
 ```
 > This code will extract the "title" from the form, and create a TodoItem that will then be appended to the array of todo items. 
 > Finally, it will return the TodoList component with the new todo array and the status code 201 (successfully created).  
-> Note the complete lack of error handling in the above code! This is one of the things we are going to skip for now, to keep it simple.
+> Note the complete lack of error handling in the above code! This is one of the things we are going to skip for now, to keep it simpler.
 
-> 💡 One more tip: In case it's been a while since you created your last HTML form:
+> 💡 2nd Tip: In case it's been a while since you created your last HTML form: They look something like this:
+```html
+<form method="POST">
+    <input type="text" placeholder="Add a new todo"/>
+    <button type="submit">Add</button>
+</form>
+```
 
 --------
 
@@ -118,26 +126,28 @@ Make sure that the div in your TodoList component that wraps the for loop has th
 
 --------
 
-## Exercise 8
-What's missing now is the ability to delete Todo Items now.
+## Exercise 8 - Deleting the items
+What's missing now is the ability to delete Todo Items.
+**You should know what to do by now: Create a button with an hx-delete request to the server.**  
 You can use this svg as your delete button:
-```
+```html
 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 </svg>
 ```
-**You should know what to do by now: Create a button with an hx-delete request to the server.**  
-Use the ID of the todo item as a parameter in the request path. 
+Use the ID of the todo item as a parameter in the request path.  
+This will require you to convert the Integer `Id` into a string. You can use the `strconv.Itoa(Id)` to do so. 
+You can concatenate the strings in Templ like so: `{"/todos/" + strconv.Itoa(todo.Id)}`
 
-> 💡 We are using plain `net/http` (The web server from the Go standard library), so you will have to extract the Id from the string manually in your Go code. Web frameworks like Echo handle this automatically.
+> 💡 We are using plain `net/http` (The web server from the Go standard library), so you will have to extract the Id from the string manually in your Go code. Web frameworks like Echo handle this automatically. How exactly to do that is left as an exercise for the reader.
+> Another thing to watch out for is that `http.handleFunc("/todos")` does not handle `/todos/` with the extra slash at the end. You will have to create a separate endpoint for that.
 
-There are some things you need to watch out here for. One thing are the hx-target selectors: You can not only use CSS selectors, but combine them with `closest`, `next` or `previous` to select the item you want. 
+There are some things you need to watch out here for. One thing are the hx-target selectors: You can not only use CSS selectors, but combine them with `closest`, `next` or `previous` to select the item you want, for example `next h1`. 
 You can learn more [here](https://htmx.org/attributes/hx-target/).  
-Another thing is that http.handleFunc("/todos") does not handle `/todos/` with the extra slash at the end. You will have to create a separate endpoint for that.
 
 --------
 
-## Exercise 9
+## Exercise 9 - Completing items
 If you got this far, and there is still time, here is one more exercise for you:  
 **Handle the completion of todo items.**  
 Once the user checks the checkbox, make it so that the item is sent to the bottom of the list, optionally greyed out and the text striked through.  
