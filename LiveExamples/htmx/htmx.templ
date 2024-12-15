@@ -1,0 +1,19 @@
+package main
+
+templ Component() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+		</head>
+		<div class="component">
+			<h1>HTMX Demo</h1>
+			<button hx-get="/greeting" hx-swap="outerHTML">Press me!</button>
+		</div>
+	</html>
+}
+
+templ Response() {
+	<p>Hello from the server!</p>
+}
