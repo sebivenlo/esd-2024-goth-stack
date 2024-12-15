@@ -7,27 +7,75 @@ templ Index() {
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<meta name="description" content="A simple, elegant index page."/>
-			<title>Index</title>
+			<title>My Cookbook</title>
 			<script src="https://unpkg.com/htmx.org@2.0.3"></script>
+			<script src="/assets/js/htmx.min.js"></script>
 			<script src="https://cdn.tailwindcss.com"></script>
+			<style>
+        				/* Custom Tailwind Extensions */
+        				@layer base {
+        					h1, h2, h3 {
+        						font-family: "Playfair Display", serif;
+        					}
+        					body {
+        						font-family: "Lora", serif;
+        					}
+        				},
+
+        				.bg-ornament {
+        					background: url('https://static-gi.asianetnews.com/images/01jex3a10kyf9bcp15bzwnmbyq/how-to-make-gingerbread-without-oven-1733995856914.jpg') no-repeat center;
+        					background-size: cover;
+        				}
+
+        			</style>
 		</head>
-		<body class="h-full flex items-center justify-center">
-			<div class="w-full max-w-3xl p-8 md:p-12 text-center space-y-8">
-				<h1 class="text-5xl font-extrabold tracking-tight text-gray-900">
-					Welcome
-				</h1>
-				<p class="text-xl text-gray-600 max-w-prose mx-auto">
-					This
+		<body class="h-full">
+			<!-- Header (Hero) -->
+			<header class="bg-ornament text-center py-20">
+				<h1 class="text-6xl font-bold text-[#FFFFFF] tracking-wide">My favourite recipes</h1>
+				<p class="mt-4 text-lg text-[#504746]">
+					A journey into timeless recipes and heartfelt baking moments.
 				</p>
-				<div class="flex justify-center space-x-4">
-					<a class="inline-block px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 transition-colors">
-						Get Started
-					</a>
-					<a href="#" class="inline-block px-6 py-3 text-lg font-medium text-blue-600 bg-white rounded-md border border-blue-600 hover:bg-blue-50 transition-colors">
-						About
-					</a>
+			</header>
+			<!-- Featured Recipes Section -->
+			<main class="max-w-7xl mx-auto p-12 space-y-16">
+				<!-- Featured Recipes -->
+				<section>
+					<h2 class="text-4xl font-bold text-[#504746] text-center mb-8">Featured Recipes</h2>
+					<div id="featured-recipes" hx-get="/load-featured" hx-trigger="load" hx-target="#featured-recipes" hx-swap="innerHTML">
+                        <!-- Placeholder -->
+                        <p class="text-gray-500">Loading featured recipes...</p>
+                    </div>
+
+				</section>
+				<!-- Random Recipe -->
+				<div class="text-center mt-12">
+                    <button class="bg-[#8b5e3c] text-white px-6 py-3 rounded-lg hover:bg-[#a6724b] transition-colors"
+                            hx-get="/random-recipe" hx-swap="innerHTML">
+                        Show Me a Random Recipe
+                    </button>
+                    <div id="random-recipe" class="mt-6"></div>
+                </div>
+
+				<!-- About Section -->
+				<section>
+					<h2 class="text-4xl font-bold text-[#8b5e3c] text-center mb-8">About me</h2>
+					<div class="bg-white p-8 rounded-lg shadow-lg border border-[#e0d6d1] text-center">
+						<p class="text-lg text-[#6b4f3c]">
+							Everything is better with a cookie or two.
+						</p>
+					</div>
+				</section>
+			</main>
+			<!-- Footer -->
+			<footer class="bg-[#8b5e3c] text-white py-6">
+				<div class="max-w-7xl mx-auto text-center">
+					<p class="text-sm">&copy; 2024 Baking Bliss. No rights reserved.</p>
+					<p class="text-sm">
+						Don't follow me on <a href="#" class="underline">Instagram</a> | <a href="#" class="underline">Pinterest</a>
+					</p>
 				</div>
-			</div>
+			</footer>
 		</body>
 	</html>
 }
