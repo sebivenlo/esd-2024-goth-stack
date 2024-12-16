@@ -1,8 +1,7 @@
 # GOTH Stack Workshop 🚀
 Welcome to the **ESD-2024-GOTH-Stack** workshop repository! It contains everything you need to follow along with the workshop, including assignments, documentation, and examples. 
 This workshop demonstrates how to build a web application using the **GOTH stack**:
-- [**G**o](https://github.com/sebivenlo/esd-2024-goth-stack/blob/main/Documentation/Golang.md) – a fast, statically typed, compiled programming language
-- **O** (implied in the name, but often omitted—just “GTH stack” is less catchy!)
+- [**Go**](https://github.com/sebivenlo/esd-2024-goth-stack/blob/main/Documentation/Golang.md) – a fast, statically typed, compiled programming language
 - [**T**empl](https://github.com/sebivenlo/esd-2024-goth-stack/blob/main/Documentation/Templ.md) – a template-based code generator for Go, simplifying your HTML generation
 - [**H**TMX](https://github.com/sebivenlo/esd-2024-goth-stack/blob/main/Documentation/HTMX.md) – a lightweight JavaScript library for extending HTML with dynamic, server-driven functionality
 

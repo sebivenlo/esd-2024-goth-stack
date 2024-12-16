@@ -88,7 +88,7 @@ The struct needs an `Id`, a `Title`, and a bool checking if it is `Done`.
 Let's add the functionality to **create** a Todo Item! You can use an HTML form to do so. We will keep it simple in the beginning. 
 
 **1.** Add an HTML form (Look at the second tip below if you need help with that) to your TodoList component. It should have an input field with the attribute `name="title"`.  
-The form should send an hx-post to `/todos` and target `#content`. You can use these attributes instead of the default `method="POST"` attribute for forms. Also, it's always a good idea to create new templ components for items like this.
+The form should send an hx-post to `/todos` and target `#content`. You can use these attributes instead of the default `method=POST` attribute for forms. Also, it's always a good idea to create new templ components for items like this.
 
 **2.** Handling this post request in your `main.go` will require you to do some things which we have not tackled yet, mainly the `http.HandleFunc` method to handle custom logic instead of simply returning a file. To make things easier, just copy and paste the following code into your `main.go`:
 ```go
@@ -107,7 +107,7 @@ http.HandleFunc("/todos", func(w http.ResponseWriter, r *http.Request) {
 
 > 💡 2nd Tip: In case it's been a while since you created your last HTML form: They look something like this:
 ```html
-<form method="POST">
+<form method=POST>
     <input type="text" placeholder="Add a new todo"/>
     <button type="submit">Add</button>
 </form>
