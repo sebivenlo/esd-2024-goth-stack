@@ -1,4 +1,4 @@
-module Cookbook
+module cookbook
 
 go 1.23.3
 
